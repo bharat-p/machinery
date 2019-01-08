@@ -175,6 +175,7 @@ func TestPrivateFunc_consumeDeliveries(t *testing.T) {
 		t.Fatal(err)
 	}
 	wk := server1.NewWorker("sms_worker", 0)
+	server1.NewCustomQueueWorker()
 	go func() { deliveries <- receiveMessageOutput }()
 	whetherContinue, err := testAWSSQSBroker.ConsumeDeliveriesForTest(deliveries, concurrency, wk, pool, errorsChan)
 	assert.True(t, whetherContinue)
